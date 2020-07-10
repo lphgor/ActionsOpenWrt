@@ -9,7 +9,11 @@
 #=============================================================
 
 # Uncomment a feed source
-#sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # Add a feed source
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
+
+rm -rf ./package/lean/UnblockNeteaseMusic*
+rm -rf ./package/lean/luci-app-unblockmusic
+git clone https://github.com/cnsilvan/luci-app-unblockneteasemusic ./package/unblockneteasemusic
