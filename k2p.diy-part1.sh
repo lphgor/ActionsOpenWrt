@@ -17,4 +17,4 @@ sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 rm -rf ./package/lean/UnblockNeteaseMusic*
 rm -rf ./package/lean/luci-app-unblockmusic
 git clone https://github.com/cnsilvan/luci-app-unblockneteasemusic ./package/unblockneteasemusic
-git clone https://lphgor:${{ secrets.token }}@github.com/lphgor/mosquitto.git ./package/mosquitto
+git clone https://lphgor:${{ secrets.TOKEN }}@github.com/lphgor/mosquitto.git ./package/mosquitto
