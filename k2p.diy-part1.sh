@@ -20,3 +20,6 @@ git clone https://github.com/cnsilvan/luci-app-unblockneteasemusic ./package/unb
 sed -i 's/+unzip //g' ./package/unblockneteasemusic/luci-app-unblockneteasemusic/Makefile
 #sed -i 's/aa1eb0186206671de9a6b4fa27d933bb306d4e25/1c6951389ed2b4ed3b5a35052ca35a9647ae74d001b0af07180a66aa0f77e816/g' ./package/unblockneteasemusic/UnblockNeteaseMusic/Makefile
 git clone https://lphgor:$1@github.com/lphgor/mosquitto.git ./package/mosquitto
+
+git revert -n 5be8131
+
