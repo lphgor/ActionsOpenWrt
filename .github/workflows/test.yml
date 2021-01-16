@@ -26,7 +26,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: k2p.test
+  CONFIG_FILE: k2p.config
   DIY_P1_SH: k2p.diy-part1.sh
   DIY_P2_SH: k2p.diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -67,7 +67,7 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
-        git reset --hard eb64bd0f9b3356d771fbfce39f9f20cff53c3ceb
+        git reset --hard 59fe7c1ac672cc3bc940e1faa09cc522d2233b37
         $GITHUB_WORKSPACE/$DIY_P1_SH ${{ secrets.TOKEN }}
 
     - name: Update feeds
