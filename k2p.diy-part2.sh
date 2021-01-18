@@ -15,4 +15,5 @@ sed -i 's/192.168.1.1/192.168.0.1/g' package/base-files/files/bin/config_generat
 sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci/Makefile
 #sed -i 's/20201010/20201010/g;s/afab2a087b787e59e129c7d4fbc578e1131d264c0da1ce23cd1282321fc3c189/afab2a087b787e59e129c7d4fbc578e1131d264c0da1ce23cd1282321fc3c189/g' ./package/lean/kcptun/Makefile
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF/$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0/g;/nas/d;/admin_status/d;/ustclug/d;/openwrt_release/d;/log-facility/d' ./package/lean/default-settings/files/zzz-default-settings
+echo sed -i '/helloworld/d' /etc/opkg/distfeeds.conf >> ./package/lean/default-settings/files/zzz-default-settings
 echo 0xDEADBEEF > ./feeds/helloworld/luci-app-ssr-plus/root/etc/config/google_fu_mode
