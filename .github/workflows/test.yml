@@ -75,7 +75,7 @@ jobs:
         #git revert -n f8035eb8a12bdf8008e5c30d4cc36a8cf52e0ed7
         #git revert -n 995724bffbcb942b487cb894aa60f6f84c381de5
         #git revert -n 
-        wget -O ./target/linux/ramips/mt7621/base-files/etc/board.d/02_network https://github.com/coolsnowwolf/lede/raw/master/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
+        #wget -O ./target/linux/ramips/mt7621/base-files/etc/board.d/02_network https://github.com/coolsnowwolf/lede/raw/master/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
         $GITHUB_WORKSPACE/$DIY_P1_SH ${{ secrets.TOKEN }}
 
     - name: Update feeds
