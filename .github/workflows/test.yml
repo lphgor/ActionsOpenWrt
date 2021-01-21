@@ -67,6 +67,7 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
+        git revert -n c83233b0525e73c1e0d4525686388c3eee027267
         #git reset --hard 995724bffbcb942b487cb894aa60f6f84c381de5
         git revert -n a8ddd988b1d5c93b85fce780fa05c7e1755c2e13
         #git revert -n e7115414c8a7e6c4ae6b7e8863f48fcce3b915eb
