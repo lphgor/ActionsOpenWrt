@@ -77,6 +77,7 @@ jobs:
         #git revert -n f8035eb8a12bdf8008e5c30d4cc36a8cf52e0ed7
         #git revert -n 995724bffbcb942b487cb894aa60f6f84c381de5
         #git revert -n 
+        wget -O ./target/linux/ramips/dts/mt7621_phicomm_k2p.dts https://github.com/coolsnowwolf/lede/raw/b039772c021d8fdb060eeb356f6b0de1b50d0d72/target/linux/ramips/dts/mt7621_phicomm_k2p.dts
         wget -O ./target/linux/ramips/mt7621/base-files/etc/board.d/02_network https://github.com/coolsnowwolf/lede/raw/e7115414c8a7e6c4ae6b7e8863f48fcce3b915eb/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
         $GITHUB_WORKSPACE/$DIY_P1_SH ${{ secrets.TOKEN }}
 
