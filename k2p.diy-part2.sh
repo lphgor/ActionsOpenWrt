@@ -18,4 +18,4 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF/$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0/g;
 #sed -i "s#exit 0#sed -i '/helloworld/d' /etc/opkg/distfeeds.conf\nexit 0#g" ./package/lean/default-settings/files/zzz-default-settings
 echo 0xDEADBEEF > ./feeds/helloworld/luci-app-ssr-plus/root/etc/config/google_fu_mode
 
-sed -i 's/> 60/> 59/g;s/> 24/> 23/g' ./feeds/luci/modules/luci-base/htdocs/luci-static/resources/cbi.js
+#sed -i 's/> 60/> 59/g;s/> 24/> 23/g' ./feeds/luci/modules/luci-base/htdocs/luci-static/resources/cbi.js
