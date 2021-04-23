@@ -1,0 +1,62 @@
+name: shadowsocks-rust
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.build.shadowsocks-rust'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    env:
+      RUST_BACKTRACE: full
+    strategy:
+      matrix:
+        target:
+          #- i686-unknown-linux-musl
+          #- x86_64-pc-windows-gnu
+          - x86_64-unknown-linux-gnu
+          #- x86_64-unknown-linux-musl
+          #- arm-unknown-linux-gnueabi
+          #- arm-unknown-linux-gnueabihf
+          #- arm-unknown-linux-musleabi
+          #- arm-unknown-linux-musleabihf
+          #- aarch64-unknown-linux-gnu
+          #- aarch64-unknown-linux-musl
+          #- mips-unknown-linux-musl
+          #- mips-unknown-linux-gnu
+          #- mipsel-unknown-linux-musl
+
+    steps:
+    
+    - uses: actions/checkout@v2
+    
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        git clone https://github.com/shadowsocks/shadowsocks-rust -b master shadowsocks-rust
+        ln -sf /workdir/shadowsocks-rust $GITHUB_WORKSPACE/shadowsocks-rust
+        
+    - name: Install cross
+      run: cargo install cross
+      
+    - name: Build ${{ matrix.target }}
+      timeout-minutes: 120
+      run: |
+        cd shadowsocks-rust/build
+        ./build-release -t ${{ matrix.target }}
+        
+    - name: Upload Github Assets
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: shadowsocks-rust/build/release/*
+        prerelease: ${{ contains(github.ref, '-') }}
