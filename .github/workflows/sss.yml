@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
+      EXTRA_FEATURES: "stream-cipher"
       RUST_BACKTRACE: full
     strategy:
       matrix:
@@ -53,10 +54,8 @@ jobs:
         cd shadowsocks-rust/build
         ./build-release -t ${{ matrix.target }}
         
-    - name: Upload Github Assets
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload
+      uses: actions/upload-artifact@main
       with:
-        files: shadowsocks-rust/build/release/*
-        prerelease: ${{ contains(github.ref, '-') }}
+        name: shadowsocks-rust
+        path: shadowsocks-rust/build/release/
