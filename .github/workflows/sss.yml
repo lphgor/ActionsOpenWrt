@@ -42,7 +42,7 @@ jobs:
       working-directory: /workdir
       run: |
         git clone https://github.com/shadowsocks/shadowsocks-rust -b master shadowsocks-rust
-        ln -sf /workdir/shadowsocks-rust $GITHUB_WORKSPACE/shadowsocks-rust
+        #ln -sf /workdir/shadowsocks-rust $GITHUB_WORKSPACE/shadowsocks-rust
         
     - name: Install cross
       run: cargo install cross
