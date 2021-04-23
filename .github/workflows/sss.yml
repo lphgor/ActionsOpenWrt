@@ -39,7 +39,7 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Clone source code
-      working-directory: /workdir
+      #working-directory: /workdir
       run: |
         git clone https://github.com/shadowsocks/shadowsocks-rust -b master shadowsocks-rust
         #ln -sf /workdir/shadowsocks-rust $GITHUB_WORKSPACE/shadowsocks-rust
