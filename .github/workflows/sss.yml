@@ -55,9 +55,9 @@ jobs:
     #  uses: actions/upload-artifact@main
     #  with:
     #    name: shadowsocks-rust
-    #    path: shadowsocks-rust/build/release/
+    #    path: build/release/
 
-    - name: Upload Binaries to Release
+    - name: Upload
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ github.token }}
