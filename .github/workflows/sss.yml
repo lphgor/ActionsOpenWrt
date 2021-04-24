@@ -3,7 +3,7 @@ name: shadowsocks-rust
 on:
   push:
     tags:
-      - ss*
+      - 'v*'
 
 env:
   CARGO_TERM_COLOR: always
@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      EXTRA_FEATURES: "stream-cipher"
       RUST_BACKTRACE: full
     strategy:
       matrix:
@@ -37,17 +36,21 @@ jobs:
     
     - uses: actions/checkout@v2
     
-    - name: Clone source code
-      run: |
-        git clone https://github.com/shadowsocks/shadowsocks-rust -b master shadowsocks-rust
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        repository: 'shadowsocks/shadowsocks-rust'
+        ref: ${{ github.ref }}
         
     - name: Install cross
       run: cargo install cross
       
     - name: Build ${{ matrix.target }}
       timeout-minutes: 120
+      env:
+        EXTRA_FEATURES: "stream-cipher"
       run: |
-        cd shadowsocks-rust/build
+        cd build
         ./build-release -t ${{ matrix.target }}
         
     #- name: Upload
@@ -56,10 +59,10 @@ jobs:
     #    name: shadowsocks-rust
     #    path: shadowsocks-rust/build/release/
 
-    - name: Upload Github Assets
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload Binaries to Release
+      uses: svenstaro/upload-release-action@v2
       with:
-        files: shadowsocks-rust/build/release/*
-        prerelease: ${{ contains(github.ref, '-') }}
+        repo_token: ${{ github.token }}
+        file: build/release/*
+        tag: ${{ github.ref }}
+        file_glob: true
