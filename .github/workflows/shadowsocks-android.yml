@@ -35,8 +35,15 @@ jobs:
       
     - name: Build
       run: |
+        echo "${{ secrets.SIGNING_KEY }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.jks
         ./gradlew assembleRelease
+          -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks 
+          -Pandroid.injected.signing.store.password=${{ secrets.KEY_STORE_PASSWORD }} 
+          -Pandroid.injected.signing.key.alias=${{ secrets.ALIAS }} 
+          -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
         mkdir -p output_signed
+        cp mobile/build/outputs/apk/release/* ./output_signed/
+        cp tv/build/outputs/apk/release/* ./output_signed/
         
     #- name: Upload
     #  uses: actions/upload-artifact@main
@@ -44,19 +51,19 @@ jobs:
     #    name: shadowsocks-rust
     #    path: build/release/
 
-    - uses: Tlaster/android-sign@v1.2.2
-      name: Sign app APK
-      with:
-        releaseDirectory: |
-          mobile/build/outputs/apk/release
-          tv/build/outputs/apk/release
-        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-        output: ./output_signed
-        alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD }}
-      env:
-        BUILD_TOOLS_VERSION: "30.0.2"
+    #- uses: Tlaster/android-sign@v1.2.2
+    #  name: Sign app APK
+    #  with:
+    #    releaseDirectory: |
+    #      mobile/build/outputs/apk/release
+    #      tv/build/outputs/apk/release
+    #    signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+    #    output: ./output_signed
+    #    alias: ${{ secrets.ALIAS }}
+    #    keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+    #    keyPassword: ${{ secrets.KEY_PASSWORD }}
+    #  env:
+    #    BUILD_TOOLS_VERSION: "30.0.2"
 
     - name: Upload
       uses: svenstaro/upload-release-action@v2
