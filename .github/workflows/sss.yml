@@ -46,7 +46,7 @@ jobs:
     - name: Build ${{ matrix.target }}
       timeout-minutes: 120
       env:
-        EXTRA_FEATURES: "stream-cipher"
+        EXTRA_FEATURES: "stream-cipher aead-cipher-extra"
       run: |
         cd build
         ./build-release -t ${{ matrix.target }}
