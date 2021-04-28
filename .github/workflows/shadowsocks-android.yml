@@ -49,12 +49,13 @@ jobs:
           mobile/build/outputs/apk/release
           tv/build/outputs/apk/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-        output: output_signed
+        output: ./output_signed
         alias: ${{ secrets.ALIAS }}
         keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
         keyPassword: ${{ secrets.KEY_PASSWORD }}
       env:
         BUILD_TOOLS_VERSION: "30.0.2"
+      run: mkdir -p output_signed
 
     - name: Upload
       uses: svenstaro/upload-release-action@v2
