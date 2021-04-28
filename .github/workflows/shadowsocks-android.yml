@@ -44,7 +44,7 @@ jobs:
     #    name: shadowsocks-rust
     #    path: build/release/
 
-    - uses: r0adkll/sign-android-release@v1
+    - uses: Tlaster/android-sign@v1.2.2
       name: Sign app APK
       with:
         releaseDirectory: |
