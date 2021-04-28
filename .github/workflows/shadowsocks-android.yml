@@ -34,7 +34,9 @@ jobs:
         rustup target add armv7-linux-androideabi aarch64-linux-android i686-linux-android x86_64-linux-android
       
     - name: Build
-      run: ./gradlew assembleRelease
+      run: |
+        ./gradlew assembleRelease
+        mkdir -p output_signed
         
     #- name: Upload
     #  uses: actions/upload-artifact@main
@@ -55,7 +57,6 @@ jobs:
         keyPassword: ${{ secrets.KEY_PASSWORD }}
       env:
         BUILD_TOOLS_VERSION: "30.0.2"
-      run: mkdir -p output_signed
 
     - name: Upload
       uses: svenstaro/upload-release-action@v2
