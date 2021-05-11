@@ -19,6 +19,6 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF/$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0/g;
 echo 0xDEADBEEF > ./feeds/helloworld/luci-app-ssr-plus/root/etc/config/google_fu_mode
 
 # Remove ssr & simple-obfs
-sed -i 's/+shadowsocksr-libev-alt //g;s/+shadowsocksr-libev-ssr-local //g;/simple-obfs/d' ./feeds/helloworld/luci-app-ssr-plus/Makefile
+#sed -i 's/+shadowsocksr-libev-alt //g;s/+shadowsocksr-libev-ssr-local //g;/simple-obfs/d' ./feeds/helloworld/luci-app-ssr-plus/Makefile
 
 #sed -i 's/> 60/> 59/g;s/> 24/> 23/g' ./feeds/luci/modules/luci-base/htdocs/luci-static/resources/cbi.js
