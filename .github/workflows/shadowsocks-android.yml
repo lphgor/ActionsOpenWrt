@@ -35,8 +35,8 @@ jobs:
       
     - name: Build
       run: |
-        sed -i 's/android.defaultConfig.applicationId = "com.github.shadowsocks"/android.defaultConfig.applicationId = "com.github.ssss"/g' ./mobile/build.gradle.kts
-        sed -i 's/android.defaultConfig.applicationId = "com.github.shadowsocks.tv"/android.defaultConfig.applicationId = "com.github.ssss.tv"/g' ./tv/build.gradle.kts
+        #sed -i 's/android.defaultConfig.applicationId = "com.github.shadowsocks"/android.defaultConfig.applicationId = "com.github.ssss"/g' ./mobile/build.gradle.kts
+        #sed -i 's/android.defaultConfig.applicationId = "com.github.shadowsocks.tv"/android.defaultConfig.applicationId = "com.github.ssss.tv"/g' ./tv/build.gradle.kts
         echo "${{ secrets.SIGNING_KEY }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.jks
         ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks -Pandroid.injected.signing.store.password=${{ secrets.KEY_STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
         mkdir -p ./output_signed
