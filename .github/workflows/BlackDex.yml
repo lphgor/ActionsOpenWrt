@@ -26,7 +26,11 @@ jobs:
     
     - name: Build
       run: |
-        mv ./Bcore/src/main/cpp/jnihook ./Bcore/src/main/cpp/jniHook
+        sed -i 's#import "jniHook/JniHook.h"#import "jnihook/JniHook.h"#g' ./Bcore/src/main/cpp/hook/UnixFileSystemHook.cpp
+        sed -i 's#import "jniHook/JniHook.h"#import "jnihook/JniHook.h"#g' ./Bcore/src/main/cpp/hook/ProcessHook.cpp
+        sed -i 's#import "jniHook/JniHook.h"#import "jnihook/JniHook.h"#g' ./Bcore/src/main/cpp/hook/VMClassLoaderHook.cpp
+        sed -i 's#include <jniHook/JniHook.h>#include <jnihook/JniHook.h>#g;s#include <jniHook/ArtM.h>#include <jnihook/ArtM.h>#g' ./Bcore/src/main/cpp/VmCore.cpp
+        sed -i 's#compileSdkVersion 28#compileSdkVersion 30#g;s#buildToolsVersion "28.0.2"#buildToolsVersion "30.0.3"#;s#targetSdkVersion 28#targetSdkVersion 30#g' ./Bcore/build.gradle
         echo "${{ secrets.SIGNING_KEY }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.jks
         ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks -Pandroid.injected.signing.store.password=${{ secrets.KEY_STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
         rm $GITHUB_WORKSPACE/signing-key.jks
