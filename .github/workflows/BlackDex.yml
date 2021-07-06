@@ -28,12 +28,13 @@ jobs:
       run: |
         echo "${{ secrets.SIGNING_KEY }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.jks
         ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks -Pandroid.injected.signing.store.password=${{ secrets.KEY_STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+        ls -l
         rm $GITHUB_WORKSPACE/signing-key.jks
         chmod 777 -R ./app/build/outputs
-        ls -l ./app/build/outputs/apk/BlackDex32/*
+        #ls -l ./app/build/outputs/apk/BlackDex32/*
         mkdir upload
-        cp app/build/outputs/apk/BlackDex32/app-BlackDex32-release.apk upload/
-        cp app/build/outputs/apk/BlackDex64/app-BlackDex64-release.apk upload/
+        cp ./app/build/outputs/apk/BlackDex32/app-BlackDex32-release.apk upload/
+        cp ./app/build/outputs/apk/BlackDex64/app-BlackDex64-release.apk upload/
         chmod 777 -R upload
         
     - name: Upload
