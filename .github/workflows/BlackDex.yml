@@ -34,6 +34,6 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ github.token }}
-        file: ./app/*
+        file: ./app/build/outputs/apk/*
         tag: ${{ github.ref }}
         file_glob: true
