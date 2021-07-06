@@ -38,3 +38,10 @@ jobs:
         file: ./app/build/outputs/apk/BlackDex32/app-BlackDex32-release.apk
         tag: ${{ github.ref }}
         file_glob: true
+
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ github.token }}
+        file: ./app/build/outputs/apk/BlackDex64/app-BlackDex64-release.apk
+        tag: ${{ github.ref }}
+        file_glob: true
