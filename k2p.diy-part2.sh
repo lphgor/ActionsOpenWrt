@@ -17,6 +17,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/l
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF/$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0/g;/nas/d;/admin_status/d;/ustclug/d;/openwrt_release/d;/log-facility/d' ./package/lean/default-settings/files/zzz-default-settings
 #sed -i "s#exit 0#sed -i '/helloworld/d' /etc/opkg/distfeeds.conf\nexit 0#g" ./package/lean/default-settings/files/zzz-default-settings
 echo 0xDEADBEEF > ./feeds/helloworld/luci-app-ssr-plus/root/etc/config/google_fu_mode
+sed -i '/DEPENDS:=+kcptun-config/d' ./feeds/packages/net/kcptun/Makefile
 
 # Remove ssr & simple-obfs
 #sed -i 's/+shadowsocksr-libev-alt //g;s/+shadowsocksr-libev-ssr-local //g;/simple-obfs/d' ./feeds/helloworld/luci-app-ssr-plus/Makefile
