@@ -18,7 +18,7 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF/$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0/g;
 #sed -i "s#exit 0#sed -i '/helloworld/d' /etc/opkg/distfeeds.conf\nexit 0#g" ./package/lean/default-settings/files/zzz-default-settings
 echo 0xDEADBEEF > ./feeds/helloworld/luci-app-ssr-plus/root/etc/config/google_fu_mode
 sed -i '/DEPENDS:=+kcptun-config/d' ./feeds/packages/net/kcptun/Makefile
-sed -i '/ +shadowsocks-libev-config//g' ./feeds/packages/net/shadowsocks-libev/Makefile
+sed -i 's/ +shadowsocks-libev-config//g' ./feeds/packages/net/shadowsocks-libev/Makefile
 
 # Remove ssr & simple-obfs
 #sed -i 's/+shadowsocksr-libev-alt //g;s/+shadowsocksr-libev-ssr-local //g;/simple-obfs/d' ./feeds/helloworld/luci-app-ssr-plus/Makefile
