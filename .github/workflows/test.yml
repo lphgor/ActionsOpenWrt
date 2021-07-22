@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: Build OpenWrt - TEST
+name: Build OpenWrt
 
 on:
   #repository_dispatch:
@@ -26,7 +26,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: k2p.config
+  CONFIG_FILE: k2p.test
   DIY_P1_SH: k2p.diy-part1.sh
   DIY_P2_SH: k2p.diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -35,7 +35,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -48,7 +48,7 @@ jobs:
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -67,18 +67,6 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
-        #git revert -n 18d284b238f2f2b2f75e6492330858a25a21b865
-        #git revert -n c83233b0525e73c1e0d4525686388c3eee027267
-        #git reset --hard 995724bffbcb942b487cb894aa60f6f84c381de5
-        #git revert -n a8ddd988b1d5c93b85fce780fa05c7e1755c2e13
-        #git revert -n e7115414c8a7e6c4ae6b7e8863f48fcce3b915eb
-        #git revert -n 28f854eb5f7931dba5828503cfc8e285f1672eaf
-        #git revert -n 7dcc873ecada3ed370edefb5f9261636256831a5
-        #git revert -n f8035eb8a12bdf8008e5c30d4cc36a8cf52e0ed7
-        #git revert -n 995724bffbcb942b487cb894aa60f6f84c381de5
-        #git revert -n 
-        wget -O ./target/linux/ramips/dts/mt7621_phicomm_k2p.dts https://github.com/coolsnowwolf/lede/raw/b039772c021d8fdb060eeb356f6b0de1b50d0d72/target/linux/ramips/dts/mt7621_phicomm_k2p.dts
-        wget -O ./target/linux/ramips/mt7621/base-files/etc/board.d/02_network https://github.com/coolsnowwolf/lede/raw/e7115414c8a7e6c4ae6b7e8863f48fcce3b915eb/target/linux/ramips/mt7621/base-files/etc/board.d/02_network
         $GITHUB_WORKSPACE/$DIY_P1_SH ${{ secrets.TOKEN }}
 
     - name: Update feeds
