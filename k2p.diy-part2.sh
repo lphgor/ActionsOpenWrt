@@ -17,7 +17,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/l
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF/$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0/g;/nas/d;/admin_status/d;/ustclug/d;/openwrt_release/d;/log-facility/d' ./package/lean/default-settings/files/zzz-default-settings
 #sed -i "s#exit 0#sed -i '/helloworld/d' /etc/opkg/distfeeds.conf\nexit 0#g" ./package/lean/default-settings/files/zzz-default-settings
 echo 0xDEADBEEF > ./feeds/helloworld/luci-app-ssr-plus/root/etc/config/google_fu_mode
-#sed -i '/DEPENDS:=+kcptun-config/d' ./feeds/packages/net/kcptun/Makefile
+sed -i '/DEPENDS:=+kcptun-config/d' ./feeds/packages/net/kcptun/Makefile
 #sed -i 's/ +shadowsocks-libev-config//g' ./feeds/packages/net/shadowsocks-libev/Makefile
 sed -i 's/spi-max-frequency = <80000000>/spi-max-frequency = <10000000>/g' ./target/linux/ramips/dts/mt7621_phicomm_k2p.dts
 
