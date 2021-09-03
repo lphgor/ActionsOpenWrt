@@ -60,6 +60,7 @@ jobs:
       with:
         repository: $REPO_URL
         ref: $REPO_BRANCH
+        fetch-depth: 0
         path: /workdir/openwrt
     - run: ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
