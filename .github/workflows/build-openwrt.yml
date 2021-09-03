@@ -58,8 +58,8 @@ jobs:
     - name: Clone source code
       uses: actions/checkout@v2
       with:
-        repository: $REPO_URL
-        ref: $REPO_BRANCH
+        repository: ${{ env.REPO_URL }}
+        ref: ${{ env.REPO_BRANCH }}
         fetch-depth: 0
         path: /workdir/openwrt
     - run: ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
@@ -68,7 +68,7 @@ jobs:
       uses: klever1988/cachewrtbuild@main
       with:
         ccache: true
-        prefix: $GITHUB_WORKSPACE/openwrt
+        prefix: ${{ github.workspace }}/openwrt
 
     - name: Load custom feeds
       run: |
