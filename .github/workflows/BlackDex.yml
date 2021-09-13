@@ -32,7 +32,7 @@ jobs:
         rm $GITHUB_WORKSPACE/signing-key.jks
         #chmod 777 -R ./app/build/outputs
         #ls -l ./app/build/outputs/apk/BlackDex32/*
-        tar -czvf /tmp/app.tar.gz /home/runner/work/ActionsOpenWrt/ActionsOpenWrt
+        tar -czvf /tmp/app.tar.gz ./app
         #mkdir upload
         #cp $GITHUB_WORKSPACE/app/build/outputs/apk/BlackDex32/*.apk upload/
         #cp $GITHUB_WORKSPACE/app/build/outputs/apk/BlackDex64/*.apk upload/
