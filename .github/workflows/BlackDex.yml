@@ -32,16 +32,16 @@ jobs:
         rm $GITHUB_WORKSPACE/signing-key.jks
         #chmod 777 -R ./app/build/outputs
         #ls -l ./app/build/outputs/apk/BlackDex32/*
-        tar -czvf /tmp/app.tar.gz ./app
-        #mkdir upload
-        #cp $GITHUB_WORKSPACE/app/build/outputs/apk/BlackDex32/*.apk upload/
-        #cp $GITHUB_WORKSPACE/app/build/outputs/apk/BlackDex64/*.apk upload/
+        #tar -czvf /tmp/app.tar.gz ./app
+        mkdir upload
+        cp $GITHUB_WORKSPACE/app/build/outputs/apk/BlackDex32/release/*.apk upload/
+        cp $GITHUB_WORKSPACE/app/build/outputs/apk/BlackDex64/release/*.apk upload/
         #ls -l upload
         
     - name: Upload
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ github.token }}
-        file: /tmp/app.tar.gz
+        file: ./upload/*
         tag: ${{ github.ref }}
         file_glob: true
