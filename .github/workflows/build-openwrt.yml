@@ -16,6 +16,8 @@ on:
       - master
     paths:
       - '.build.k2p'
+  watch:
+    types: started
 
 env:
   REPO_URL: coolsnowwolf/lede
