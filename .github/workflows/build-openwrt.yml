@@ -18,6 +18,7 @@ on:
       - '.build.k2p'
   watch:
     types: started
+  workflow_dispatch:
 
 env:
   REPO_URL: coolsnowwolf/lede
@@ -35,6 +36,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
     - name: Checkout
