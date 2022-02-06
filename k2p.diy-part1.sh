@@ -13,11 +13,12 @@
 
 # Add a feed source
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
+sed -i '$a src-git ngrok https://github.com/lphgor/openwrt-ngrokc' feeds.conf.default
 
 #rm -rf ./package/lean/UnblockNeteaseMusic*
 #rm -rf ./package/lean/luci-app-unblockmusic
 #git clone https://github.com/cnsilvan/luci-app-unblockneteasemusic ./package/unblockneteasemusic
-git clone https://github.com/lphgor/openwrt-ngrokc ./package/openwrt-ngrokc
+#git clone https://github.com/lphgor/openwrt-ngrokc ./package/openwrt-ngrokc
 #sed -i 's/+unzip //g;s/+luci-compat //g' ./package/unblockneteasemusic/luci-app-unblockneteasemusic/Makefile
 #sed -i 's/aa1eb0186206671de9a6b4fa27d933bb306d4e25/1c6951389ed2b4ed3b5a35052ca35a9647ae74d001b0af07180a66aa0f77e816/g' ./package/unblockneteasemusic/UnblockNeteaseMusic/Makefile
 #git clone https://lphgor:$1@github.com/lphgor/mosquitto.git ./package/mosquitto
