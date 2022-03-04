@@ -12,8 +12,8 @@
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # Add a feed source
-sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 sed -i '$a src-git ngrok https://github.com/lphgor/openwrt-ngrokc' feeds.conf.default
+sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
 #rm -rf ./package/lean/UnblockNeteaseMusic*
 #rm -rf ./package/lean/luci-app-unblockmusic
