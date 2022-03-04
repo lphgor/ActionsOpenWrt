@@ -15,6 +15,7 @@ jobs:
     
     env:
       RUST_BACKTRACE: full
+      RUSTFLAGS: "-C strip=symbols"
     strategy:
       matrix:
         target:
@@ -39,6 +40,15 @@ jobs:
       with:
         repository: 'shadowsocks/shadowsocks-rust'
         ref: ${{ github.ref }}
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        target: ${{ matrix.target }}
+        toolchain: nightly
+        default: true
+        override: true
         
     - name: Install cross
       run: cargo install cross
