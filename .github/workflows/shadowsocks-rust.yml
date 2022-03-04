@@ -63,7 +63,7 @@ jobs:
           fi
 
           cd build
-        ./build-release -t ${{ matrix.target }} $compile_features $compile_compress
+          ./build-release -t ${{ matrix.target }} $compile_features $compile_compress
         
     #- name: Upload
     #  uses: actions/upload-artifact@main
