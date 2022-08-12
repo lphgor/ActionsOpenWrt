@@ -41,7 +41,6 @@ jobs:
         ./gradlew assembleRelease -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks -Pandroid.injected.signing.store.password=${{ secrets.KEY_STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
         mkdir -p ./output_signed
         cp mobile/build/outputs/apk/release/* ./output_signed/
-        #cp tv/build/outputs/apk/release/* ./output_signed/
         rm $GITHUB_WORKSPACE/signing-key.jks
         
     #- name: Upload
