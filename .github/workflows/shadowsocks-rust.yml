@@ -55,7 +55,7 @@ jobs:
     - name: Build ${{ matrix.target }}
       timeout-minutes: 120
       env:
-        EXTRA_FEATURES: " stream-cipher aead-cipher-extra"
+        EXTRA_FEATURES: " stream-cipher aead-cipher-extra aead-cipher-2022 aead-cipher-2022-extra"
       run: |
           compile_target=${{ matrix.target }}
           if [[ "$compile_target" == *"-linux-"* || "$compile_target" == *"-apple-"* ]]; then
