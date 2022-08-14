@@ -18,7 +18,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        repository: 'shadowsocks/shadowsocks-android'
+        repository: 'lphgor/shadowsocks-android'
         #ref: ${{ github.ref }}
         submodules: 'true'
 
@@ -32,7 +32,6 @@ jobs:
       run: |
         rustup default nightly && rustup update
         cd core/src/main/rust/shadowsocks-rust
-        git pull origin master --ff-only
         rustup target add armv7-linux-androideabi aarch64-linux-android i686-linux-android x86_64-linux-android
       
     - name: Build
