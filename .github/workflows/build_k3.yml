@@ -91,6 +91,7 @@ jobs:
       run: |
         cd openwrt
         echo -e 'CONFIG_DEVEL=y\nCONFIG_CCACHE=y' >> .config
+        sed -i '/phicomm_k3/!s/^TARGET_/# TARGET_/g;' ./target/linux/bcm53xx/image/Makefile
         make defconfig
         ./scripts/diffconfig.sh
         make download -j8
