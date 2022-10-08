@@ -30,7 +30,7 @@ jobs:
         
     - name: Rust with Android targets installed
       run: |
-        rustup default nightly && rustup update
+        rustup default nightly-2022-08-28
         cd core/src/main/rust/shadowsocks-rust
         rustup target add armv7-linux-androideabi aarch64-linux-android i686-linux-android x86_64-linux-android
       
