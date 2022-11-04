@@ -25,7 +25,7 @@ env:
   CONFIG_FILE: k3.config
   DIY_P1_SH: k2p.diy-part1.sh
   DIY_P2_SH: k2p.diy-part2.sh
-  USE_CACHE: true
+  USE_CACHE: false
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
