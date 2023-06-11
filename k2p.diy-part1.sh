@@ -15,6 +15,8 @@
 sed -i '$a src-git ngrok https://github.com/lphgor/openwrt-ngrokc' feeds.conf.default
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
+echo "CONFIG_ARM_CRYPTO=y" >> ./target/linux/bcm53xx/config-5.4
+
 #rm -rf ./package/lean/UnblockNeteaseMusic*
 #rm -rf ./package/lean/luci-app-unblockmusic
 #git clone https://github.com/cnsilvan/luci-app-unblockneteasemusic ./package/unblockneteasemusic
