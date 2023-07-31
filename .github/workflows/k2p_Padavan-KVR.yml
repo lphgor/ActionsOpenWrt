@@ -110,6 +110,9 @@ jobs:
           ################################################################################################
           
           sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_FRPC/d' .config #删除配置项frpc
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_TTYD/d' .config #删除配置项ttyd
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_VLMCSD/d' .config #删除配置项vlmcsd
           
           ######################################################################
           #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
