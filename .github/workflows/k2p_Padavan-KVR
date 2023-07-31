@@ -1,0 +1,181 @@
+# This is a basic workflow that is manually triggered
+
+name: Padavan固件编译
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      production:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 设置编译的固件型号,空格分隔.
+        # Default value if no value is explicitly provided
+        default: "K2P"
+        # Input has to be provided for the workflow to run
+        required: false
+      release:
+        # Friendly description to be shown in the UI instead of 'name'
+        #无法换行
+        #description: "是否需要发布到Release?\n(不发布也可以到Artifacts下载)"
+        #缩短长度还是解决不了手机页面的显示超出
+        #description: "是否需要发布到Release?"
+        description: "是否需要发布到Release? (不发布也可以到Artifacts下载)"
+        # Default value if no value is explicitly provided
+        default: 'yes'
+        # Input has to be provided for the workflow to run
+        required: false
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  padavan:
+    # The type of runner that the job will run on ubuntu-latest
+    runs-on: ubuntu-20.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:    
+    - name: 生成版本号
+      run: |
+        whoami
+        id
+        echo 接收到的输入参数:
+        echo "${{ github.event.inputs.production }}"
+        echo "${{ github.event.inputs.release }}"
+        echo 
+        echo 当前目录:$(pwd)
+        # 版本号,用日期
+        VERSION=$(TZ='Asia/Shanghai' date +%Y.%m.%d-%H%M)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        # $GITHUB_ENV变量必须要在下一个流程才生效
+        echo "DIR=/opt/rt-n56u" >> $GITHUB_ENV
+        val1="${{ github.event.inputs.production }}"
+        val2=$(echo $val1 | sed 's/ /-/')
+        echo "NAME=$VERSION+${val2}" >> $GITHUB_ENV
+        #让版本号符合版本规范 1.0.202110252117+K2P-PSG1218
+        # 2021.10.28-2133+K2P-PSG1218
+        echo "TAG=v$VERSION+${val2}" >> $GITHUB_ENV
+        ip addr
+
+    - name: 创建目录
+      run: |
+        echo ${{ env.NAME }}
+        echo ${{ env.TAG }}
+        sudo mkdir -m 777 -p ${{ env.DIR }}
+        sudo mkdir -m 777 -p /opt/images/
+        
+        echo 开始编译时间 >> /opt/images/readme.txt
+        TZ='Asia/Shanghai'  date  '+%Y-%m-%d %H:%M:%S' >> /opt/images/readme.txt
+        
+    - name: 准备编译环境
+      if: true
+      run: | 
+        sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd \
+        fakeroot kmod cpio git python3-docutils gettext automake autopoint \
+        texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
+        libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin  > /dev/null
+  
+    - name: 下载源码
+      env:
+        KERNEL: 3.4
+      run: |
+        git clone --depth=1 https://github.com/fightroad/Padavan-KVR.git ${{ env.DIR }}  > /dev/null
+        cd ${{ env.DIR }}/toolchain-mipsel
+        sh dl_toolchain.sh > /dev/null
+        pwd
+
+    - name: 开始编译
+      if: true
+      env: 
+        #用空格分隔型号,循环编译
+        TNAME: "${{ github.event.inputs.production }}"
+        KERNEL: 3.4
+      run: |
+        if [ "$TNAME" == "DEBUG" ];then
+          exit 0
+        fi
+        for m in $TNAME;
+        do
+          echo "::group::编译 ${m}"
+          cd ${{ env.DIR }}/trunk
+          if [ ! -f configs/templates/$TNAME.config ] ; then
+          echo "configs/templates/$TNAME.config not found "
+          exit 1
+          fi
+          cp -f configs/templates/$TNAME.config .config
+          ################################################################################################
+          #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
+          ################################################################################################
+          
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
+          
+          ######################################################################
+          #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
+          ######################################################################
+          
+          #echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
+          
+          #########################################################################################
+          #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
+          #格式如下：
+          #sed -i '/自定义项/d' .config
+          #echo "自定义项=y" >> .config
+          #########################################################################################
+          sudo ./clear_tree || echo 
+          sudo ./build_firmware_modify ${m}    > /dev/null
+          ls -l images
+          sudo mv -f images/*.trx /opt/images/
+          echo "::endgroup::"
+        done
+      
+    - name: 收集信息
+      if: true
+      run: |
+        cd /opt/images
+        #记录一个版本号
+        echo 完成编译时间 >> /opt/images/readme.txt
+        TZ='Asia/Shanghai'  date  '+%Y-%m-%d %H:%M:%S' >> /opt/images/readme.txt
+        
+        echo  >> /opt/images/readme.txt
+        echo 编译版本 >> /opt/images/readme.txt
+        
+        pushd ${{ env.DIR }}
+        git ls-remote --get-url origin >> /opt/images/readme.txt
+        git log -1 >> /opt/images/readme.txt
+        popd
+        
+        echo  >> /opt/images/readme.txt
+        echo md5校验值 >> /opt/images/readme.txt
+        cd /opt/images
+        #为固件文件名加上日期
+        for i in *.trx
+        do
+          #echo org $i
+          mv -v "$i" "${i%.*}-${{ env.VERSION }}.trx"
+        done
+        #测试
+        md5sum *.trx >> /opt/images/readme.txt || echo
+        ls -l
+        
+        
+    - name : 上传编译的固件Artifacts
+      uses: actions/upload-artifact@v3
+      if: true
+      with:
+        name: ${{ env.NAME }}
+        path: /opt/images
+        
+    - name: 发布到Release
+      if: ${{ github.event.inputs.release == 'yes' }}
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ env.NAME }}
+        tag_name: ${{ env.TAG }}
+        body_path: /opt/images/readme.txt
+        draft: false
+        prerelease: false
+        files: /opt/images/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
