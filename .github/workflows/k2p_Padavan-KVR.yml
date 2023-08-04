@@ -15,17 +15,17 @@ on:
         default: "K2P"
         # Input has to be provided for the workflow to run
         required: false
-      release:
+      #release:
         # Friendly description to be shown in the UI instead of 'name'
         #无法换行
         #description: "是否需要发布到Release?\n(不发布也可以到Artifacts下载)"
         #缩短长度还是解决不了手机页面的显示超出
         #description: "是否需要发布到Release?"
-        description: "是否需要发布到Release? (不发布也可以到Artifacts下载)"
+        #description: "是否需要发布到Release? (不发布也可以到Artifacts下载)"
         # Default value if no value is explicitly provided
-        default: 'yes'
+        #default: 'yes'
         # Input has to be provided for the workflow to run
-        required: false
+        #required: false
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -43,7 +43,7 @@ jobs:
         id
         echo 接收到的输入参数:
         echo "${{ github.event.inputs.production }}"
-        echo "${{ github.event.inputs.release }}"
+        #echo "${{ github.event.inputs.release }}"
         echo 
         echo 当前目录:$(pwd)
         # 版本号,用日期
@@ -174,7 +174,7 @@ jobs:
         path: /opt/images
         
     - name: 发布到Release
-      if: ${{ github.event.inputs.release == 'yes' }}
+      #if: ${{ github.event.inputs.release == 'yes' }}
       uses: softprops/action-gh-release@v1
       with:
         name: ${{ env.NAME }}
