@@ -11,6 +11,7 @@
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.0.1/g' ./package/base-files/files/bin/config_generate
 # rm -rf ./feeds/helloworld/shadowsocks-rust
+sed -i '/VPN/d;s/vpn/services/g' ./feeds/luci/applications/luci-app-zerotier/luasrc/controller/zerotier.lua
 sed -i '/NAS/d;s/nas/services/g' ./feeds/luci/applications/luci-app-cifsd/luasrc/controller/cifsd.lua
 sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci/Makefile
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF/$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0/g;/nas/d;/admin_status/d;/downloads.openwrt.org/d;/openwrt_release/d;/log-facility/d' ./package/lean/default-settings/files/zzz-default-settings
