@@ -6,27 +6,6 @@ name: Padavan固件编译
 # or API.
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts.
-    inputs:
-      production:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 设置编译的固件型号,空格分隔.
-        # Default value if no value is explicitly provided
-        default: "K2P"
-        # Input has to be provided for the workflow to run
-        required: false
-      release:
-        # Friendly description to be shown in the UI instead of 'name'
-        #无法换行
-        #description: "是否需要发布到Release?\n(不发布也可以到Artifacts下载)"
-        #缩短长度还是解决不了手机页面的显示超出
-        #description: "是否需要发布到Release?"
-        description: "是否需要发布到Release? (不发布也可以到Artifacts下载)"
-        # Default value if no value is explicitly provided
-        default: 'yes'
-        # Input has to be provided for the workflow to run
-        required: false
-
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -41,9 +20,6 @@ jobs:
       run: |
         whoami
         id
-        echo 接收到的输入参数:
-        echo "${{ github.event.inputs.production }}"
-        echo "${{ github.event.inputs.release }}"
         echo 
         echo 当前目录:$(pwd)
         # 版本号,用日期
@@ -51,8 +27,7 @@ jobs:
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         # $GITHUB_ENV变量必须要在下一个流程才生效
         echo "DIR=/opt/rt-n56u" >> $GITHUB_ENV
-        val1="${{ github.event.inputs.production }}"
-        val2=$(echo $val1 | sed 's/ /-/')
+        val2="K2P"
         echo "NAME=$VERSION+${val2}" >> $GITHUB_ENV
         #让版本号符合版本规范 1.0.202110252117+K2P-PSG1218
         # 2021.10.28-2133+K2P-PSG1218
@@ -88,7 +63,7 @@ jobs:
       if: true
       env: 
         #用空格分隔型号,循环编译
-        TNAME: "${{ github.event.inputs.production }}"
+        TNAME: "K2P "
       run: |
         if [ "$TNAME" == "DEBUG" ];then
           exit 0
@@ -142,7 +117,6 @@ jobs:
         path: /opt/images
         
     - name: 发布到Release
-      if: ${{ github.event.inputs.release == 'yes' }}
       uses: softprops/action-gh-release@v1
       with:
         name: ${{ env.NAME }}
