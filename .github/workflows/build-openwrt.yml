@@ -24,7 +24,7 @@ env:
   REPO_URL: coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: k2p.test
+  CONFIG_FILE: k2p.config
   DIY_P1_SH: k2p.diy-part1.sh
   DIY_P2_SH: k2p.diy-part2.sh
   USE_CACHE: false
