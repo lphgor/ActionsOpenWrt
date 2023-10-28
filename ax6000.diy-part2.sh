@@ -15,5 +15,3 @@ sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/l
 sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci-ssl-nginx/Makefile
 sed -i '/list listen_https/d' ./package/network/services/uhttpd/files/uhttpd.config
 sed -i '/log-facility/d' ./package/emortal/default-settings/files/99-default-settings
-sed -i "/exit 0/ised -i 's/root::0:0:99999:7:::/root:$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0.:0:0:99999:7:::/g' /etc/shadow" ./package/emortal/default-settings/files/99-default-settings
-sed -i "/exit 0/ised -i 's/root:::0:99999:7:::/root:$1$l1CYLqFu$llSM4AY38sLaTb7gelfl0.:0:0:99999:7:::/g' /etc/shadow" ./package/emortal/default-settings/files/99-default-settings
