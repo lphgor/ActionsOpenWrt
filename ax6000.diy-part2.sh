@@ -11,5 +11,7 @@
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.0.1/g' ./package/base-files/files/bin/config_generate
 sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci-light/Makefile
+sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci-nginx/Makefile
+sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci-ssl-nginx/Makefile
 sed -i '/list listen_https/d' ./package/network/services/uhttpd/files/uhttpd.config
 sed -i '/log-facility/d' ./package/emortal/default-settings/files/99-default-settings
