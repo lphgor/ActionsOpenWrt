@@ -74,30 +74,28 @@ jobs:
         do
           echo "::group::编译 ${m}"
           cd ${{ env.DIR }}/trunk
-          pwd
-          ls ${{ env.DIR }}/trunk/configs/templates
           if [ ! -f configs/templates/$TNAME.config ] ; then
           echo "configs/templates/$TNAME.config not found "
           exit 1
           fi
-          #cp -f configs/templates/$TNAME.config .config
+          cp -f configs/templates/$TNAME.config .config
           ################################################################################################
           #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
           ################################################################################################
           
-          sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' configs/templates/$TNAME.config #删除配置项zerotier
-          sed -i '/CONFIG_FIRMWARE_INCLUDE_FRPC/d' configs/templates/$TNAME.config #删除配置项frpc
-          sed -i '/CONFIG_FIRMWARE_INCLUDE_TTYD/d' configs/templates/$TNAME.config #删除配置项ttyd
-          sed -i '/CONFIG_FIRMWARE_INCLUDE_VLMCSD/d' configs/templates/$TNAME.config #删除配置项vlmcsd
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_FRPC/d' .config #删除配置项frpc
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_TTYD/d' .config #删除配置项ttyd
+          sed -i '/CONFIG_FIRMWARE_INCLUDE_VLMCSD/d' .config #删除配置项vlmcsd
           
           ######################################################################
           #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
           ######################################################################
           
-          echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=n" >> configs/templates/$TNAME.config
-          echo "CONFIG_FIRMWARE_INCLUDE_FRPC=n" >> configs/templates/$TNAME.config
-          echo "CONFIG_FIRMWARE_INCLUDE_TTYD=n" >> configs/templates/$TNAME.config
-          echo "CONFIG_FIRMWARE_INCLUDE_VLMCSD=n" >> configs/templates/$TNAME.config
+          echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=n" >> .config
+          echo "CONFIG_FIRMWARE_INCLUDE_FRPC=n" >> .config
+          echo "CONFIG_FIRMWARE_INCLUDE_TTYD=n" >> .config
+          echo "CONFIG_FIRMWARE_INCLUDE_VLMCSD=n" >> .config
           
           #########################################################################################
           #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
