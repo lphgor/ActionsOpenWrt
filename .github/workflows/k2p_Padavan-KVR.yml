@@ -74,6 +74,8 @@ jobs:
         do
           echo "::group::编译 ${m}"
           cd ${{ env.DIR }}/trunk
+          pwd
+          ls ${{ env.DIR }}/trunk/configs/templates
           if [ ! -f configs/templates/$TNAME.config ] ; then
           echo "configs/templates/$TNAME.config not found "
           exit 1
