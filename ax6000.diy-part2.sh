@@ -16,3 +16,4 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci
 sed -i '/list listen_https/d' ./package/network/services/uhttpd/files/uhttpd.config
 sed -i '/log-facility/d' ./package/emortal/default-settings/files/99-default-settings
 sed -i "/exit 0/ised -i '/DISTRIB_DESCRIPTION/ { s/SNAPSHOT/SNAPSHOT($(date +%Y%m%d%H%M%S))/g; }' /etc/openwrt_release" ./package/emortal/default-settings/files/99-default-settings
+sed -i "/exit 0/ised -i '/DISTRIB_RELEASE/ { s/SNAPSHOT/SNAPSHOT($(date +%Y%m%d%H%M%S))/g; }' /etc/openwrt_release" ./package/emortal/default-settings/files/99-default-settings
