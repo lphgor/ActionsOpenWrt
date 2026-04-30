@@ -17,3 +17,4 @@ sed -i '/list listen_https/d' ./package/network/services/uhttpd/files/uhttpd.con
 sed -i '/log-facility/d' ./package/emortal/default-settings/files/99-default-settings
 sed -i "/exit 0/ised -i '/DISTRIB_DESCRIPTION/ { s/SNAPSHOT/SNAPSHOT($(date +%Y%m%d%H%M%S))/g; }' /etc/openwrt_release" ./package/emortal/default-settings/files/99-default-settings
 sed -i "/exit 0/ised -i '/OPENWRT_RELEASE/ { s/SNAPSHOT/SNAPSHOT($(date +%Y%m%d%H%M%S))/g; }' /usr/lib/os-release" ./package/emortal/default-settings/files/99-default-settings
+sed -i 's/3.05.661/5.04.874/g; s/202b5eb6d4ecee5444ac5a55fea462ad106ebfb88f51ca8499553db4f701f28f/9350a647872c64cc3025b69ae7181de9736b6073acf4b46cad265ee3dad20974/g' ./feeds/packages/net/xfrpc/Makefile
