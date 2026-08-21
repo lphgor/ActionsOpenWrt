@@ -18,6 +18,6 @@ sed -i '/list listen_https/d' ./package/network/services/uhttpd/files/uhttpd.con
 sed -i '/log-facility/d' ./package/emortal/default-settings/files/99-default-settings
 sed -i "/exit 0/ised -i '/DISTRIB_DESCRIPTION/ { s/SNAPSHOT/SNAPSHOT($(date +%Y%m%d%H%M%S))/g; }' /etc/openwrt_release" ./package/emortal/default-settings/files/99-default-settings
 sed -i "/exit 0/ised -i '/OPENWRT_RELEASE/ { s/SNAPSHOT/SNAPSHOT($(date +%Y%m%d%H%M%S))/g; }' /usr/lib/os-release" ./package/emortal/default-settings/files/99-default-settings
-sed -i 's/5.06.909/5.09.976/g; s/7742bedbe929f5bfb386af2025de744aa38bc6f531e1f86a1fbb7318e3ec8f72/C2FDEC14510CF2F25CA086A35EB7657695467EED908A710D302E6B9FC77D1954/g' ./feeds/packages/net/xfrpc/Makefile
+sed -i 's/5.06.909/5.09.976/g; s/7742bedbe929f5bfb386af2025de744aa38bc6f531e1f86a1fbb7318e3ec8f72/c2fdec14510cf2f25ca086a35eb7657695467eed908a710d302e6b9fc77d1954/g' ./feeds/packages/net/xfrpc/Makefile
 rm -rf ./feeds/luci/applications/luci-app-xfrpc
 git clone https://github.com/liudf0716/luci-app-xfrpc ./feeds/luci/applications/luci-app-xfrpc
